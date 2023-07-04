@@ -60,7 +60,7 @@ function TodoList() {
 
             return comment;
         })
-        console.log(updatedComments)
+
         setComments(updatedComments);
     }
 

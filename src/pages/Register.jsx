@@ -62,7 +62,6 @@ function Register() {
     function handleConfirmPassword(event) {
         event.preventDefault();
         if(event.target.id === 'password' && confirmPassword !== password ) {
-            console.log(confirmPassword)
             setIsPasswordMatch(false)
             return 
         }
