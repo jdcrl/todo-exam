@@ -14,13 +14,12 @@ function Login() {
         const user = users.filter((user) =>  user.username === username && user.password === password).find((user) => true)
         if (user === undefined) {
             alert('Failed logging in, Check entered credentials')
-            return
+            return false
         }
 
         sessionStorage.setItem('loggedInUser', JSON.stringify(user));
         setIsSuccess(true);
         alert('Logged In Successfully')
-        return
     }
 
     useEffect(() => {

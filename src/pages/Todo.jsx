@@ -124,7 +124,7 @@ function Todo() {
     }, [userSession, todos])
 
     return (
-        <TodosContext.Provider value={{usersTodo, completeTodo, markAsEditing, updateTodo, deleteTodo, showComment}}>
+        <TodosContext.Provider value={{usersTodo, markAsEditing, completeTodo, updateTodo, deleteTodo, showComment}}>
         {isLoggedIn && <NavBar setIsLoggedIn={setIsLoggedIn}/> }
         <div className='w-1/4 border-[0.5px] max-h-[70vh] rounded-lg shadow-lg flex flex-col py-5 px-5'>
             <div className='flex flex-col'>
