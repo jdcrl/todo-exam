@@ -18,7 +18,7 @@ function TodoList() {
     const {usersTodo, completeTodo, markAsEditing, updateTodo, deleteTodo, showComment} = useContext(TodosContext)
 
     function FilteredTodo() {
-        return usersTodo.filter(todo => {
+        const todos = usersTodo.filter(todo => {
             if (filter === 'active') {
                 return todo.isComplete === false
             }
@@ -29,6 +29,12 @@ function TodoList() {
 
             return todo
         })
+
+        if(todos.length === 0) {
+            return[{id: 0, title: 'No Available todos for this filter'}]
+        }
+
+        return todos
     }
 
     function markCommentAsEditing(id) {
@@ -100,17 +106,18 @@ function TodoList() {
                         {FilteredTodo().map((todo, index) => (
                             <div key={index} className={`px-2 flex flex-col min-h-[2.5rem] items-end  ${index % 2 === 0 ? 'bg-white' : 'bg-slate-100' }`}> 
                                 <div className='flex w-full items-center space-x-2'>
-                                    <input type='checkbox' onChange={() => completeTodo(todo.id)} className='h-4 w-4' checked={todo.isComplete}/>
+                                    {todo.id !== 0 && <input type='checkbox' onChange={() => completeTodo(todo.id)} className='h-4 w-4' checked={todo.isComplete}/>}
                                     {!todo.isEditing 
                                         ? (<span title={todo.title} onDoubleClick={() => markAsEditing(todo.id)} className='flex-grow text-xl cursor-text text-ellipsis overflow-hidden'>{todo.title} </span>)
                                         : (<input type='text' className='w-full outline-none border-[0.5px] px-3' defaultValue={todo.title} onBlur={(event) => updateTodo(event, todo.id)} autoFocus/>)
                                     }
-                                    <span title='Show comments' className='hover:rotate-[30deg] transition duration-300 ease-in-out cursor-pointer' onClick={() => showComment(todo.id)}>
+                                     {todo.id !== 0 && <><span title='Show comments' className='hover:rotate-[30deg] transition duration-300 ease-in-out cursor-pointer' onClick={() => showComment(todo.id)}>
                                         <CommentIcon /> 
                                     </span>
                                     <span title='Delete todo' className='hover:rotate-[30deg] transition duration-300 ease-in-out cursor-pointer' onClick={() => deleteTodo(todo.id)}>
                                         <TrashIcon /> 
                                     </span>
+                                    </>}
                                 </div>
                                 {todo.isShowingComment && <Comments todo={todo} />}
                             </div>      
